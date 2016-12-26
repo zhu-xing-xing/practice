@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js获取某元素的class里面的css属性值</title>
+<style>
+#box1{margin:5px;padding:5px;height:100px;width:200px;}
+a{border:1px solid #ccc;border-radius:3px;padding:3px 5px;margin:5px 0;display:inline-block;background:#eee;color:#f60;text-decoration:none;font-size:12px;}
+a:hover{color:#ff0000;background:#fff;}
+</style>
+</head>
+<body>
+<div id="box1">box1的css.#box1{margin:5px;padding:5px;height:100px;width:200px;}</div>
+<a href="javascript:;" onclick="getcss('marginTop')">获取box1的margin-top</a><br />
+<a href="javascript:;" onclick="getcss('paddingTop')">获取box1的padding-top</a><br />
+<a href="javascript:;" onclick="getcss('height')">获取box1的height</a><br />
+<script>
+//获取class里面的属性值
+var divs=document.getElementById("box1");
+function getStyle(obj,attr){
+    var ie = !+"\v1";//简单判断ie6~8
+ if(attr=="backgroundPosition"){//IE6~8不兼容backgroundPosition写法，识别backgroundPositionX/Y
+  if(ie){        
+   return obj.currentStyle.backgroundPositionX +" "+obj.currentStyle.backgroundPositionY;
+     }
+ }
+ if(obj.currentStyle){
+  return obj.currentStyle[attr];
+ }
+ else{
+  return document.defaultView.getComputedStyle(obj,null)[attr];
+ }
+}
+function getcss(typ){
+ alert(getStyle(divs,typ));
+}
+</script>
+</body>
+</html>

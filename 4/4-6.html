@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>输入框高亮</title>
+	<style type="text/css" media="screen">
+		body,div,label,input,p{margin:0;padding:0;}
+		#outer{
+			width: 400px;
+			margin: 10px auto;
+			border: 2px solid #FF6600;
+			background: #FEF4EB;
+		}
+		#outer p{
+			padding: 10px;
+			border-bottom: 2px solid #FF6600;
+			font-weight: bold;
+			color: #FE791E;
+			background: #FFEBD7;
+		}
+		#outer label{
+			display: block;
+			color: #4F4F4F;
+		}
+		#outer input{
+			width: 206px;
+			height: 30px;
+			margin-top: 10px;
+			background: #FFFDEC;
+			border: 1px solid #DCDCDC;
+			border-radius: 5px;
+		}
+		#outer input.current{
+			background: #FFE7E7;
+		}
+		#outer button{
+			border: none;
+			width: 104px;
+			height: 31px;
+			margin: 10px 0;
+			border-radius: 5px;
+			background: #FF6600;
+			color: #fff;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var inputs=document.getElementsByTagName("input");
+			for(var i=0;i<inputs.length;i++){
+				inputs[i].onfocus=function(){
+					this.className="current";
+				};
+				inputs[i].onblur=function(){
+					this.className="";
+				};
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="outer">
+		<p>用户登录</p>
+		<center>
+			<label>用户名：<input type="text" class=""></label>
+			<label>&nbsp;密码：<input type="password" class=""></label>
+			<button>登录</button>
+		</center>
+	</div>
+</body>
+</html>

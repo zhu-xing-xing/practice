@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分系统2</title>
+	<style type="text/css" media="screen">
+		*{margin:0;padding:0;}
+		body{font:12px/1.5 Arial;}
+		ul{list-style-type: none;display:inline-block;margin-right: 20px;}
+		#outer{
+			position: relative;
+			width: 600px;
+			margin:10px auto;
+		}
+		#outer ul,#outer span{
+			float: left;
+			display: inline;
+			height: 19px;
+			line-height: 19px;
+		}
+		#outer ul li{
+			float: left;
+			width: 20px;
+			height: 18px;
+			margin-left:8px;
+			background: url('images/4-9-1.fw.png') no-repeat;
+			cursor: pointer;
+		}
+		#outer ul li.on{
+			background: url('images/4-9-2.fw.png') no-repeat;
+		}
+		#outer em{
+			font-style: normal;
+			color: #FF6600;
+		}
+		#outer strong{
+			color: #FF6600;
+		}
+		#tip{
+			position: absolute;
+			box-sizing: border-box;
+			width: 180px;
+			height: 70px;
+			border: 1px solid #E7E7E7;
+			background: #FDFDFD;
+			border-radius: 10px;
+			padding: 5px 15px;
+			top: 25px;
+			left: 0;
+			display: none;
+		}
+
+		.arrow{
+			position: absolute;
+			display: block;
+			width:11px;
+			height: 7px;
+			background: url('images/4-9-3.fw.png') no-repeat;
+			top: -7px;
+			left: 85px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var outer=document.getElementById("outer");
+			var oUl=document.getElementsByTagName("ul")[0];
+			var list=oUl.getElementsByTagName("li");
+			var ospan=outer.getElementsByTagName("span")[1];
+			var odiv=document.getElementById("tip");
+			var p=odiv.getElementsByTagName("p")[0];
+			var index=score=current=0;
+
+			var msg=[ "很不满意|差的太离谱，与卖家描述的严重不符，非常不满",
+							  "不满意|部分有破损，与卖家描述的不符，不满意",
+								"一般|质量一般，没有卖家描述的那么好",
+								"满意|质量不错，与卖家描述的基本一致，还是挺满意的",
+								"非常满意|质量非常好，与卖家描述的完全一致，非常满意"];
+
+			for(var i=1;i<=list.length;i++){
+				list[i-1].index=i;
+
+				list[i-1].onmouseover=function(){
+						showStar(this.index);
+						odiv.style.display='block';
+						var str=msg[this.index-1].split("|",2);
+						odiv.style.left=this.offsetLeft-odiv.offsetWidth/2+9+"px";
+						p.innerHTML="<em><b>"+(this.index)+"</b>分 "+str[0]+"</em><br />"+str[1];
+				};
+
+				list[i-1].onmouseout=function(){					
+						showStar();
+						odiv.style.display='none';									
+				};
+
+				list[i-1].onclick=function(){
+					current=this.index;
+					ospan.style.display='block';
+					odiv.style.display='none';
+					var str=msg[current-1].split("|",2);
+					ospan.innerHTML="<strong>"+(current)+"分 "+"</strong> ("+str[1]+")";	
+				};
+			}
+
+			function showStar(a){
+				score=a||current;
+				for(var i=0;i<list.length;i++) list[i].className=(i<score?"on":"");
+			}
+		};
+	</script>
+</head>
+<body>
+
+<div id="outer">
+	<span>点击星星就能打分</span>
+	<ul>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+	</ul>
+	<span class="right"></span>
+	<div id="tip">
+		<em class="arrow"></em>
+		<p></p>
+	</div>
+
+</div>
+</body>
+</html>

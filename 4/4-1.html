@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setTimeout</title>
+	<style type="text/css" media="screen">
+	*{margin:0;padding:0;}
+	body{font:12px/1.5 Tahoma;}
+		#nav{
+			width: 900px;
+			margin: 10px auto;
+			border-radius: 5px;
+			background: url('images/1.fw.png') repeat-x;
+			position: relative;
+		}
+		#nav ul{
+			text-align: center;
+			list-style-type: none;
+			padding: 5px 10px;
+			overflow: hidden;
+		}
+		#nav li{
+			float: left;
+			border-right:2px solid #15426F;			
+		}
+		#nav li.last{
+			border-right: 0;
+			margin-right: 0;
+		}
+		#nav ul li>a{
+			display: inline-block;
+			text-align: center;
+			width: 100px;
+			height: 25px;
+			border-radius: 8px;
+			text-decoration: none;
+			color: #fff;
+			font-size: 15px;
+			line-height: 25px;
+			margin: 0 3px;
+		}
+		#nav ul li>a:hover{
+			background: #7EA0C2;
+			font-weight: bold;
+		}
+		.nav_tab{
+			position: absolute;
+			background: url('images/3.fw.png') repeat-x;
+			box-sizing: border-box;
+			height: 27px;
+			line-height: 27px;
+			top: 38px;
+			border-radius: 5px;
+			border: 1px solid #96B6D6;
+			padding: 0 8px;
+			display: none;
+			white-space:nowrap;
+			width: auto !important;
+		}
+		.nav_tab p a{
+			text-decoration: none;
+			display:inline-block;
+			height: 20px;
+			color: #235E99;
+			padding: 0 5px;	
+		}
+		.nav_tab p a:hover{
+			text-decoration: underline;
+		}
+		.arrow{
+			position: absolute;
+			display:block;
+			width: 7px;
+			height: 5px;
+			top: -4px;
+			/* background: red; */
+			background:url("images/top.fw.png") no-repeat;
+		}
+	</style>
+
+	<script type="text/javascript">
+		window.onload=function(){
+			var nav=document.getElementById("nav");
+			var div_list=nav.getElementsByTagName("div");
+			var li_list=document.getElementsByTagName("li");
+			var em_list=document.getElementsByTagName("em");
+			var timer=null;
+			
+			for(var i=1;i<li_list.length;i++){
+				li_list[i].index=i;
+
+				li_list[i].onmouseover=function(){
+					for(var j=0;j<div_list.length;j++) div_list[j].style.display="none";
+					div_list[this.index-1].style.display="block";	
+					if(nav.offsetWidth-li_list[this.index].offsetLeft>div_list[this.index-1].offsetWidth){
+						div_list[this.index-1].style.left=li_list[this.index].offsetLeft+"px";
+					}
+					else{
+						div_list[this.index-1].style.right=0;
+						em_list[this.index-1].style.left=li_list[this.index].offsetLeft-div_list[this.index-1].offsetLeft + 50 +"px";
+					}
+						clearTimeout(timer);			//div_list也是li的一部分！
+				};
+
+				li_list[i].onmouseout=function(){
+					var current=this.index;
+					timer=setTimeout(function(){
+						div_list[current-1].style.display="none";
+					},300)
+				};
+
+			}
+		};
+	</script>
+</head>
+<body>
+<div id="nav">	
+	<ul>
+		<li>
+			<a href="javascript:;">站长之家</a>
+		</li>
+		<li>
+			<a href="javascript:;">行业资讯</a>			
+			<div class="nav_tab">
+	        <em class="arrow" style="left: 50px;"></em>
+					<p>
+						<a href="javascript:;">业界动态</a>|
+						<a href="javascript:;">收购融资</a>|
+						<a href="javascript:;">门户动态</a>|
+						<a href="javascript:;">搜索引擎</a>|
+						<a href="javascript:;">网络游戏</a>|
+						<a href="javascript:;">电子商务</a>|
+						<a href="javascript:;">广告传媒</a>|
+						<a href="javascript:;">厂商开发</a>
+					</p>
+				</div>
+		</li>
+		<li><a href="javascript:;">站长在线</a>
+		<div class="nav_tab" >
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">站长报道</a>|
+					<a href="javascript:;">好站推荐</a>|
+					<a href="javascript:;">站长聚会</a>|
+					<a href="javascript:;">站长访谈</a>|
+					<a href="javascript:;">站长茶馆</a>|
+					<a href="javascript:;">网站排行</a>
+				</p>
+			</div>
+		</li>
+		<li><a href="javascript:;">网站运营</a>
+		<div class="nav_tab" >
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">建站经验</a>|
+					<a href="javascript:;">策划盈利</a>|
+					<a href="javascript:;">搜索优化</a>|
+					<a href="javascript:;">网站推广</a>|
+					<a href="javascript:;">免费资源</a>
+				</p>
+			</div>
+		</li>
+		<li><a href="javascript:;">设计在线</a>
+		<div class="nav_tab">
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">酷站推荐</a>|
+					<a href="javascript:;">网页设计</a>|
+					<a href="javascript:;">WEB标准</a>|
+					<a href="javascript:;">视频处理</a>|
+					<a href="javascript:;">设计活动</a>
+				</p>
+			</div>
+		</li>
+		<li><a href="javascript:;">网络编程</a>
+		<div class="nav_tab">
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">Asp编程</a>|
+					<a href="javascript:;">Php编程</a>|
+					<a href="javascript:;">.Net编程</a>|
+					<a href="javascript:;">Xml编程</a>|
+					<a href="javascript:;">Access编程</a>|
+					<a href="javascript:;">Mssql</a>|
+					<a href="javascript:;">Mysql</a>
+				</p>
+			</div>
+		</li>
+		<li><a href="javascript:;">联盟资讯</a>
+		<div class="nav_tab">
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">联盟动态</a>|
+					<a href="javascript:;">联盟介绍</a>|
+					<a href="javascript:;">联盟点评</a>|
+					<a href="javascript:;">网赚技巧</a>
+				</p>
+			</div>
+		</li>
+		<li class="last"><a href="javascript:;">服务器</a>
+		<div class="nav_tab">
+        <em class="arrow" style="left: 50px;"></em>
+				<p>
+					<a href="javascript:;">Web服务器</a>|
+					<a href="javascript:;">Ftp服务器</a>|
+					<a href="javascript:;">Mail服务器</a>|
+					<a href="javascript:;">Dns服务器</a>|
+					<a href="javascript:;">Win服务器</a>|
+					<a href="javascript:;">Linux服务器</a>|
+					<a href="javascript:;">安全防护</a>|
+					<a href="javascript:;">虚拟主机</a>
+				</p>
+			</div>
+		</li>
+	</ul>
+</div>			
+</body>
+</html>

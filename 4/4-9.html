@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分系统</title>
+	<style type="text/css" media="screen">
+		*{margin:0;padding:0;}
+		body{font:12px/1.5 Arial;}
+		ul{list-style-type: none;display:inline-block;margin-right: 20px;}
+		div{
+			position: relative;
+			width: 600px;
+			margin:10px auto;
+		}
+		ul,span{
+			float: left;
+			display: inline;
+			height: 19px;
+			line-height: 19px;
+		}
+		ul li{
+			float: left;
+			width: 20px;
+			height: 18px;
+			margin-left:8px;
+			background: url('images/4-9-1.fw.png') no-repeat;
+			cursor: pointer;
+		}
+		ul li.on{
+			background: url('images/4-9-2.fw.png') no-repeat;
+		}
+		span.right{
+			display: none;
+		}
+		em{
+			font-style: normal;
+			color: #FF6600;
+		}
+		strong{
+			color: #FF6600;
+		}
+		#main{
+			border: 1px solid red;
+			position: absolute;
+			box-sizing: border-box;
+			width: 180px;
+			height: 70px;
+			border: 1px solid #E7E7E7;
+			background: #FDFDFD;
+			border-radius: 10px;
+			padding: 5px 15px;
+			top: 15px;
+			left: 0;
+			display: none;
+		}
+
+		#arrow{
+			position: absolute;
+			display: block;
+			width:11px;
+			height: 7px;
+			background: url('images/4-9-3.fw.png') no-repeat;
+			top: -7px;
+			left: 85px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var list=document.getElementsByTagName("li");
+			var ospan=document.getElementsByTagName("span")[1];
+			var p=document.getElementsByTagName("p")[0];
+			var oem=document.getElementsByTagName("em")[1];
+			var odiv=document.getElementById("main");
+			var index=num=current=0;
+			var flag=false;
+
+			var msg=[ "很不满意|差的太离谱，与卖家描述的严重不符，非常不满",
+							  "不满意|部分有破损，与卖家描述的不符，不满意",
+								"一般|质量一般，没有卖家描述的那么好",
+								"满意|质量不错，与卖家描述的基本一致，还是挺满意的",
+								"非常满意|质量非常好，与卖家描述的完全一致，非常满意"];
+
+			for(var i=0;i<list.length;i++){
+				list[i].index=i;
+
+				list[i].onmouseover=function(){
+						showStar(this.index);
+						showBottom(this.index);
+				};
+
+				list[i].onmouseout=function(){
+					if(flag==false){
+						ospan.style.display='none';
+						odiv.style.display='none';
+						for(var i=0;i<list.length;i++) list[i].className="";
+					}
+					else{
+						showStar(current);
+						odiv.style.display='none';					
+					}
+				};
+
+				list[i].onclick=function(){
+					for(var j=0;j<=this.index;j++) list[j].className="on";
+						showRight(this.index);
+						flag=true;
+				};
+			}
+
+			function showBottom(a){
+				index=a;
+				odiv.style.display='block';
+				var str=msg[index].split("|",2);
+				p.innerHTML="<em><b>"+(index+1)+"</b>分 "+str[0]+"</em><br />"+str[1];
+				odiv.style.left=list[index].offsetLeft-odiv.offsetWidth/2 +list[0].offsetWidth/2-2+"px";
+			}
+			function showRight(a){
+				current=a;
+				ospan.style.display='block';
+				var str=msg[current].split("|",2);
+				ospan.innerHTML="<strong>"+(current+1)+"分 "+"</strong>"+str[1];			
+			}
+			function showStar(a){
+				num=a;
+				for(var i=0;i<list.length;i++) list[i].className="";
+				for(var j=0;j<=num;j++) list[j].className="on";
+			}
+		};
+	</script>
+</head>
+<body>
+
+<div id="outer">
+	<span>点击星星就能打分</span>
+	<ul>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+		<li class=""><a href="javascript:;"></a></li>
+	</ul>
+	<span class="right"><strong>5 分 </strong>(质量非常好，与卖家描述的完全一致，非常满意)</span>
+	<div id="main">
+		<em id="arrow"></em>
+		<p><em><b>5</b>分 非常满意</em><br/>质量非常好，与卖家描述的完全一致，非常满意</p>
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>幻灯片效果</title>
+	<style type="text/css" media="screen">
+		*{margin:0;padding:0;}
+		body{background: #000;}
+		#outer{
+			width: 502px;
+			height: 172px;
+			margin: 10px auto;
+			background: #FFF;
+			border-radius: 5px;
+			padding: 8px;
+			position: relative;	
+		}
+		#outer img{
+			border: 1px solid #CCCCCC;
+			width: 500px;
+			height: 170px;
+			display: none;
+		}
+		#outer img.first{
+			display: block;
+		}
+		#outer ul{
+			overflow: hidden;
+			position: absolute;
+			bottom: 13px;
+			right: 10px;
+		}
+		#outer ul li{
+			float: left;
+			list-style: none;
+		}
+		#outer ul li a{
+			display: block;
+			text-decoration: none;
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			background: #00C3FF;
+			border-radius: 50%;
+			margin-right: 4px;
+			color: #fff;
+			opacity:0.9;
+			filter:alpha(opacity=90);
+		}
+
+		#outer ul li a.current{
+			font-weight: bold;
+			background: #00FFDD;	
+			opacity:1;
+			filter:alpha(opacity=90);	
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oBox=document.getElementById("outer");
+			var oA=oBox.getElementsByTagName("a");
+			var oImg=oBox.getElementsByTagName('img');
+			var play=timer=null;
+			var index=0;
+
+			for(var i=0;i<oA.length;i++){
+				oA[i].index=i;
+				oA[i].onmouseover=function(){
+					show(this.index);
+				}
+			}
+
+			oBox.onmouseover=function(){
+				clearInterval(play);
+			};
+
+			oBox.onmouseout=function(){
+				autoPlay();
+			};
+
+			function autoPlay(){
+				play=setInterval(function(){
+					index++;
+					index>= oImg.length && (index=0);
+					show(index);
+				},2000);
+			}
+
+
+
+			function show(a){
+					index=a;
+					var alpha=0;
+
+					for(var i=0;i<oImg.length;i++){
+						oImg[i].style.opacity=0;
+						oImg[i].style.display="none";
+						oImg[i].style.filter="alpha(opacity=0)";
+					}
+
+					for(var i=0;i<oA.length;i++) oA[i].className="";
+						
+					oA[index].className="current";
+					oImg[index].style.display="block";
+					clearInterval(timer);
+
+					timer=setInterval(function(){
+						alpha+=2;
+						alpha>100 && (alpha=100);
+						oImg[index].style.opacity=alpha/100;
+						oImg[index].style.filter="alpha(opacity="+alpha+")";
+						alpha==100 && clearInterval(timer);
+					},20);
+			}
+			autoPlay();
+		};
+	</script>
+	</script>
+</head>
+<body>
+	<div id="outer">
+		<img class="first" src="images/5.jpg" alt="图片">
+		<img src="images/6.jpg" alt="图片">
+		<img src="images/7.jpg" alt="图片">
+		<img src="images/8.jpg" alt="图片">
+		<img src="images/9.jpg" alt="图片">
+		<ul>
+			<li><a class="current" href="javascript:;">1</a></li>
+			<li><a class="" href="javascript:;">2</a></li>
+			<li><a class="" href="javascript:;">3</a></li>
+			<li><a class="" href="javascript:;">4</a></li>
+			<li><a class="" href="javascript:;">5</a></li>
+		</ul>
+	</div>
+</body>
+</html>
