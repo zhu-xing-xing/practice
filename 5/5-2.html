@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>显示单击的坐标</title>
+	<style type="text/css" media="screen">
+		*{margin: 0;padding: 0;}
+		pre{
+			width: 96%;
+			margin: 10px auto;
+			background: #F0F0F0;
+			color: #008000;
+			border: 1px dotted #333333;
+			padding: 20px;
+		}
+	</style>
+	<script type="text/javascript">
+		// window.onload=function(){
+			document.onclick=function(){
+				var event=event||window.event;
+				alert("坐标：["+event.clientX+","+event.clientY+"]");
+			};
+		// };
+	</script>
+</head>
+<body>
+	<pre>
+&lt;script type="text/javascript"&gt;
+window.onload=function(){
+ document.onclick=function(){
+	var event=event||window.event;
+	alert("坐标：["+event.clientX+","+event.clientY+"]");
+	};
+};
+&lt;/script&gt;
+	</pre>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义右键菜单</title>
+	<style type="text/css" media="screen">
+		body,ul,li{margin:0;padding:0;}
+		body{
+			font: 12px/1.5 arial;
+		}
+		#menu{
+			position: absolute;
+/* 			top:-9999px;
+			left:-9999px; 为什么要有？ */
+			list-style-type: none;
+			width: 100px;
+			padding: 2px;
+			border: 1px solid #8F8F8F;
+			border-radius: 3px;
+			background: #fff;
+		}
+		#menu li{
+			position: relative;
+			height: 24px;
+			padding-left: 24px;
+			background: #eaead7;
+			vertical-align:top;
+		}
+		#menu li em{
+			display: block;
+			position: absolute;
+			width: 24px;
+			height: 24px;
+			top: 0;
+			left: 0;
+			background: url('images/ico.png') no-repeat;
+		}
+		#menu li em.cut{background-position: 0 0;}
+		#menu li em.copy{background-position: 0 -24px;}
+		#menu li em.cut{background-position: 0 -48px;}
+		#menu li a{
+			text-decoration: none;
+			display: block;
+			padding-left: 5px;
+			color: #333;
+			height: 24px;
+			line-height: 24px;
+			background: #fff;
+		}
+		#menu li.active{
+			background: #8F8F8F;
+		}
+		#menu li.active a{
+			background: #8F8F8F;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oMenu=document.getElementById("menu");
+			var aLi=oMenu.getElementsByTagName('li');
+
+			//加载后隐藏自定义的右键菜单
+			oMenu.style.display="none";
+
+			//经过选项时，改变样式
+			for(var i=0; i<aLi.length;i++){
+				aLi[i].onmouseover=function(){
+					this.className="active";
+				};
+				aLi[i].onmouseout=function(){
+					this.className="";
+				};
+			}
+			//确认menu的位置在鼠标附近
+			document.oncontextmenu=function(event){
+				var event=event|| window.event;
+				var style=oMenu.style;
+				style.display="block";
+				style.top=event.clientY+'px';
+				style.left=event.clientX+'px';
+				return false;
+			};
+			//点击选项后，menu消失
+			document.onclick=function(){
+				oMenu.style.display="none";
+			};
+		};
+	</script>
+</head>
+<body>
+	<center>自定义右键菜单，请在页面点击右键查看效果</center>
+	<ul id="menu">
+		<li class="">
+			<em class="cut"></em>
+			<a href="javascript:;">剪切</a>
+		</li>
+		<li class="">
+			<em class="copy"></em>
+			<a href="javascript:;">复制</a>
+		</li>
+		<li class="">
+			<em class="paste"></em>
+			<a href="javascript:;">粘贴</a>
+		</li>
+	</ul>
+</body>
+</html>

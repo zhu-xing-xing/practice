@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>按键盘，显示KeyCode</title>
+	<style type="text/css" media="screen">
+		body,pre,p{margin:0;padding:0;}
+		body{text-align: center;
+			font:12px/1.5 arial;}
+		pre{
+			padding: 10px 15px;
+			background: #F0F0F0;
+			color: #008000;
+			border: 1px dotted #333;
+			text-align: left;
+			font: 12px/1.5 Courier New;
+			margin: 10px 15px;
+		}
+		p{
+			font-size: 40px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oP=document.getElementsByTagName("p")[0];
+			document.onkeydown=function(event){
+				var event = event|| window.event;
+				oP.innerHTML=event.keyCode;
+				return false;
+			};
+		};
+	</script>
+</head>
+<body>
+<pre>&lt;script type="text/javascript"&gt;
+ var oP=document.getElementsByTagName("p")[0];
+ document.onkeydown=function(event)
+ {
+  var event = event|| window.event;
+  oP.innerHTML=event.keyCode;
+  return false;
+ };
+&lt;/script&gt;</pre>
+<p>这里将显示您按下键的KeyCode</p>	
+</body>
+</html>

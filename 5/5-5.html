@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跟随鼠标移动</title>
+	<style media="screen">
+		body,div,ul,img,li{margin:0;padding:0;}
+		html,body{overflow: hidden;}
+		ul{list-style-type: none;}
+		#box{
+			width: 770px;
+			margin: 10px auto;
+			overflow: hidden;
+		}
+		#box li{
+			float: left;
+			width: 170px;
+      height: 170px;
+			border: 1px solid #DDDDDD;
+			margin: 0 10px;
+			cursor: pointer;
+		}
+		#box li.active{
+			border: 1px solid #a10000;
+		}
+		#big{
+			width: 400px;
+			height: 400px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			border: 2px solid #ddd;
+			display: none;
+		}
+		#big div{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 400px;
+			height: 400px;
+			opacity: 0.5;
+			filter: alpha(opacity=50);
+			background: #fff url('images/loading.gif') 50% 50% no-repeat;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var obig=document.getElementById("big");
+			var oli=document.getElementsByTagName("li");
+			var oloading=obig.getElementsByTagName("div")[0];
+			var i=0;
+			for(i=0;i<oli.length;i++){
+				oli[i].index=i;
+
+				oli[i].onmouseover=function(event){
+					var oimg=document.createElement("img");
+					var img=new Image();
+					img.src=oimg.src=oli[this.index].getElementsByTagName("img")[0].src.replace(".png","_big.png");
+					obig.appendChild(oimg);
+
+					this.className="active";
+					obig.style.display="block";
+
+					img.complete?oloading.style.display="none":(oimg.onload=function(){oloading.style.display="none";});
+				};
+
+				oli[i].onmousemove=function(event){
+					var event=event|| window.event;
+					var iwidth=document.documentElement.offsetWidth-event.clientX;
+					obig.style.top=event.clientY+20+"px";
+					obig.style.left=(iwidth<obig.offsetWidth+10? event.clientX-obig.offsetWidth-10:event.clientX+10) +"px";
+				};
+
+				oli[i].onmouseout=function(){
+					this.className="";
+					obig.style.display="none";
+					obig.removeChild(obig.lastChild);
+				};
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li><img src="images/5.1.png"></li>
+			<li><img src="images/5.2.png"></li>
+			<li><img src="images/5.3.png"></li>
+			<li><img src="images/5.4.png"></li>
+		</ul>
+	</div>
+	<div id="big">
+		<div></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟select控件</title>
+	<style type="text/css" media="screen">
+		*{margin:0;padding:0;}
+		/* body,div,em,input{margin:0;padding:0;} */
+		body{
+			background: #23384E;
+			font: 12px/1.5 Microsoft YaHei;
+		}
+		#outer{
+			width: 346px;
+			height: 30px;
+			background: url("images/1bg.fw.png") repeat-x;
+			border-radius: 5px;
+			margin: 10px auto;
+			position: relative;
+		}
+		#outer em,#outer p,#outer span,#outer button{
+			float: left;
+		}
+		#outer em{
+			background: url('images/search.fw.png') no-repeat;
+			display: block;
+			width: 23px;
+			height: 22px;
+			margin: 4px 11px 4px 6px;
+		}
+
+		#outer p{
+			box-sizing: border-box;
+			width: 200px;
+			height: 22px;
+			line-height: 21px;
+			background: url('images/2bg.fw.png') repeat-x;
+			border: 1px solid #fff;
+			border-radius: 5px;
+			margin-top: 4px;
+			padding: 0 10px;
+			cursor: pointer;
+			color: #fff;
+		}
+		#outer span{
+			position: absolute;
+			width: 16px;
+			height: 8px;
+			background: url('images/1bottom.fw.png') no-repeat;
+			top: 12px;
+			left: 217px;
+			cursor: pointer;		
+		}
+		#outer button{
+			width: 72px;
+			height: 20px;
+			border: 2px ridge #D6D6D6;
+			background: url('images/3bg.fw.png') repeat-x;
+			margin: 5px 20px 5px 10px;
+			border-radius:5px;
+			padding: 1px 0;
+		}
+		#outer button:hover{
+			background: url('images/4bg.fw.png') repeat-x;
+			color: #FF6600;
+			border: 2px ridge #FBFBFB;
+		}
+		#outer ul{
+			position: absolute;
+			left: 40px;
+			top: 26px;
+			width: 198px;
+			list-style-type: none;
+			border: 1px solid #FFFFFF;
+			background: #2B2B2B;
+			display: none;
+		}
+		#outer li{
+			height: 24px;
+			margin-bottom: -1px;
+			border-bottom: 1px dotted #fff;				
+		}
+		#outer a:hover{
+			background: url('images/5bg.fw.png') repeat-x;
+		}
+		#outer li a{
+			text-decoration: none;
+			display: block;
+			width: 198px;
+			height: 24px;
+			line-height: 24px;
+			color: #fff;
+			text-indent: 10px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oDiv=document.getElementById("outer");
+			var oUl=oDiv.getElementsByTagName("ul")[0];
+			var oLabel=oDiv.getElementsByTagName("label")[0];
+			var oP=oLabel.getElementsByTagName("p")[0];
+			var oA=oUl.getElementsByTagName("a");
+
+			oLabel.onclick=function(){
+				// alert(oP.innerHTML);
+				oUl.style.display= oUl.style.display=="block"? "none":"block";
+			};
+			for(var i=0;i<oA.length;i++){
+				oA[i].onclick=function(){
+					oP.innerHTML=this.innerHTML;
+					oUl.style.display= oUl.style.display=="block"? "none":"block";
+				};
+			}
+
+			// document.onclick=function(){
+			// 	oUl.style.display="none";
+			// };
+		};
+	</script>
+</head>
+<body>
+	<div id="outer">
+	  <em></em>
+		<label>
+		  <p>请选择游戏名称</p>
+		  <span></span>	
+		</label>
+		<button>搜索</button>
+		<ul>
+			<li><a href="javascript:;">DOTA2</a></li>
+			<li><a href="javascript:;">地下城与勇士</a></li>
+			<li><a href="javascript:;">魔兽世界(国服)</a></li>
+			<li><a href="javascript:;">魔兽世界(台服)</a></li>
+			<li><a href="javascript:;">热血江湖</a></li>
+			<li><a href="javascript:;">神鬼传奇</a></li>
+			<li><a href="javascript:;">大话西游Ⅱ</a></li>
+		</ul>
+	</div>
+</body>
+</html>
